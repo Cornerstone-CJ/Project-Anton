@@ -70,7 +70,7 @@ if __name__ == "__main__":
         elif 'netflix' in query:
             webbrowser.open("netflix.com")   
         elif 'who are you' in query:
-            speak("I am a virtual assistant developed and programmed by Sidak Arora")
+            speak("I am a virtual assistant developed and programmed by the Cornerstone team")
 
 
         # elif 'play music' in query:
