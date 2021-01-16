@@ -8,6 +8,7 @@ import os
 import subprocess
 from email.message import EmailMessage
 import getpass
+import pyowm
 
 # dependencies 
 # pip install SpeechRecognition
