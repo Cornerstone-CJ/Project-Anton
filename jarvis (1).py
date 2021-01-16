@@ -9,8 +9,13 @@ import subprocess
 from email.message import EmailMessage
 import getpass
 import pyowm
+import string 
+import random
+import string 
+
 
 # dependencies 
+# pip install pyowm
 # pip install SpeechRecognition
 # pip install wikipedia
 # pip install pyttsx3
@@ -26,7 +31,7 @@ def speak(audio):
     engine.say(audio)
     engine.runAndWait()
 
-def wishMe():
+def greet():
     hour = int(datetime.datetime.now().hour)
     if hour>=0 and hour<12:
         speak("Good Morning!")
@@ -37,9 +42,20 @@ def wishMe():
     else:
         speak("Good Evening!")  
 
-    speak("I am Jarvis. Please tell me, how may I help you?")       
+    speak("I am Jarvis. Please tell me, how may I help you?")  
+    print('''Here is a list of things I can do:
+    1. Open websites like google, netflix, whatsapp etc.
+    2. Open apps in your computer
+    3. Tell jokes
+    4. Play Music
+    5. Give the weather forecast in any desired city
+    6. Get information from wikipedia
+    7. Generate a random password 
+    8. Play rock paper scissors
 
-def takeCommand():
+    ''')     
+
+def Commands():
     r = sr.Recognizer()
     with sr.Microphone() as source:
         print("Listening...")
@@ -65,12 +81,12 @@ def default(url):
 
 if __name__ == "__main__":
     chrome_path = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s"
-    end = ("quit", "close", "leave")
-    done = False
-    wishMe()
+    end = ("quit", "close", "leave","bye")
+    greet()
+    done= False
     while not done:
         url = ""
-        query = takeCommand().lower()
+        query = Commands().lower()
         for val in end:
             if val == query:
                 speak("Have a good day.")
@@ -133,7 +149,32 @@ if __name__ == "__main__":
                 chrome(chrome_path, url)
             except:
                 default(url)
-            
+        elif 'weather' in query:
+            owm = pyowm.OWM('bec01343c8004631bd4c57dd2ea78a8b')
+            speak("Please enter the name of the city you want the weather for:")
+            city= input("City Name:")
+            loc = owm.weather_manager().weather_at_place(city)
+            weather = loc.weather
+            # temperature
+            temp = weather.temperature(unit='celsius')
+            tem=(temp['temp'])
+            speak(f"The temperature in {city} is {tem} degree celsius")
+        elif 'password' in query:
+            lowlet=string.ascii_lowercase
+            letters= string.ascii_letters
+            uplet= string.ascii_uppercase
+            punc= string.punctuation
+            lst= []
+            lst.extend(list(lowlet))
+            lst.extend(list(letters))
+            lst.extend(list(uplet))
+            lst.extend(list(punc))
+            random.shuffle(lst)
+            speak("Please enter the required password length below")
+            length= int(input("Enter the required password length: \n"))
+            password= lst[0:length]
+            speak("Your new password has been generated")
+            print(f'Password: {"".join(lst[0:length])}')
         # ideas --> spotify, Jarvis? Might need our own name yk, directly query google, jokes/easter eggs if long pause or something 
 
         
