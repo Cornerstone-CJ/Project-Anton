@@ -12,7 +12,8 @@ import pyowm
 import string 
 import random
 import string 
-
+import matplotlib 
+import matplotlib.pyplot as plt
 
 # dependencies 
 # pip install pyowm
@@ -113,16 +114,32 @@ if __name__ == "__main__":
             speak("I am a virtual assistant developed and programmed by the Cornerstone team")
 
 
-        # elif 'play music' in query:
-        #     music_dir = 'D:\\Non Critical\\songs\\Favorite Songs2'
-        #     songs = os.listdir(music_dir)
-        #     print(songs)    
-        #     os.startfile(os.path.join(music_dir, songs[0]))
 
         elif 'time' in query:
             strTime = datetime.datetime.now().strftime("%H:%M:%S")    
             speak(f"The time is {strTime}")
         
+        # elif 'plot' or 'graph' in query:
+        #     speak("I can only plot linear regression graphs. Please enter the x axis values below")
+        #     x=list(map(int,input("X Values").split(","))) 
+        #     speak("Please enter the y axis values below")
+        #     y=list(map(int,input("Y Values").split(","))) 
+        #     if len(x)!= len(y):
+        #         while len(x)!= len(y):
+        #             if len(x)> len(y):
+        #                 x.pop()
+        #             else: 
+        #                 y.pop()
+        #     plt.plot(x, y)
+        #     speak("Please enter the names of x and y labels below")
+        #     xlab= input("X label: ")
+        #     ylab= input("Y label: ")
+        #     plt.xlabel(xlab)
+        #     plt.ylabel(ylab)
+        #     speak("Enter the name of your graph")
+        #     title= input("Name: ")
+        #     plt.title(title)
+        #     plt.show()
         elif 'calculator' in query:
             subprocess.Popen('C:\\Windows\\System32\\calc.exe')
 
@@ -137,9 +154,6 @@ if __name__ == "__main__":
                         subprocess.Popen(f'C:/Users/{username.replace(" ", "")}/AppData/Local/Microsoft/Teams/Update.exe --processStart "Teams.exe"')
                     except:
                         subprocess.Popen(f'C:/Users/{username.replace(" ", "")}/Downloads/Teams_windows_x64.exe')
-        
-        # elif 'world' in query: 
-        #     subprocess.Popen('')
 
         elif 'udemy' in query:
             url = "udemy.com" 
@@ -175,6 +189,8 @@ if __name__ == "__main__":
             password= lst[0:length]
             speak("Your new password has been generated")
             print(f'Password: {"".join(lst[0:length])}')
+            
+        
         # ideas --> spotify, Jarvis? Might need our own name yk, directly query google, jokes/easter eggs if long pause or something 
 
         
