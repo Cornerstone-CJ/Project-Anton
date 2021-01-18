@@ -21,14 +21,9 @@ import sqlite3
 # pip install wikipedia
 # pip install pyttsx3
 # pip install --user pywin 
-<<<<<<< HEAD
 # pywin install pyaudio 
 # pip install pyowm
 # pip install matplotlib
-=======
-# pywin install pyaudio
-import pyaudio
->>>>>>> 45d6dc88e7bab0dfb2927792d8fd764bfa6c8802
 
 username = getpass.getuser()
 engine = pyttsx3.init('sapi5')
