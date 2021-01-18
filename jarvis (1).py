@@ -174,6 +174,9 @@ if __name__ == "__main__":
             temp = weather.temperature(unit='celsius')
             tem=(temp['temp'])
             speak(f"The temperature in {city} is {tem} degree celsius")
+                                         
+            # Password Generator
+                                         
         elif 'password' in query:
             lowlet=string.ascii_lowercase
             letters= string.ascii_letters
@@ -191,6 +194,23 @@ if __name__ == "__main__":
             speak("Your new password has been generated")
             print(f'Password: {"".join(lst[0:length])}')
             
+                  
+            # Play Music
+
+            elif 'play music' in query:
+            music_dir = 'C:\Desktop\virtual-assistant-CJ-main\songs'
+            songs = os.listdir(music_dir)
+            print(songs)
+            os.startfile(os.path.join(music_dir, songs[0]))
+            
+        
+
+
+        
+        
+
+
+        
         
         # ideas --> spotify, Jarvis? Might need our own name yk, directly query google, jokes/easter eggs if long pause or something 
 
