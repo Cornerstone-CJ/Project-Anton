@@ -216,13 +216,15 @@ if __name__ == "__main__":
         elif "tell me a joke" in query:
             print(random.choice(joke_phrases))
             #INSERT INTO "main"."Jokes"("Id","Joke") VALUES (NULL,"Insert joke here");
-            joke = 'SELECT Joke From Jokes ORDER BY RANDOM() LIMIT 1'
+            joke = cur.execute('SELECT Joke From Jokes ORDER BY RANDOM() LIMIT 1')
+
             speak(joke)
 
         elif "add a joke" in query:
             speak("what joke would you like me to add")
             new_joke = query
-            cur.execute("INSERT INTO main.Jokes(Id,Joke) VALUES (NULL,{new_joke})")
+            db_joke = cur.execute("INSERT INTO main.Jokes(Id,Joke) VALUES (NULL,{new_joke})")
+            speak(db_joke)
             speak("Thats a good one")
 
 
