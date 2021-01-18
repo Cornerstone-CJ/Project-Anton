@@ -22,6 +22,8 @@ import matplotlib.pyplot as plt
 # pip install pyttsx3
 # pip install --user pywin 
 # pywin install pyaudio 
+# pip install pyowm
+# pip install matplotlib
 
 username = getpass.getuser()
 engine = pyttsx3.init('sapi5')
@@ -123,7 +125,7 @@ if __name__ == "__main__":
             speak("I can only plot linear regression graphs. Please enter the x axis values below")
             x=list(map(int,input("X Values: ").split(","))) 
             speak("Please enter the y axis values below")
-            y=list(map(int,input("Y Values").split(","))) 
+            y=list(map(int,input("Y Values: ").split(","))) 
             if len(x)!= len(y):
                 while len(x) != len(y):
                     if len(x)> len(y):
