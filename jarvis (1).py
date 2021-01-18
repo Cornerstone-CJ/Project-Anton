@@ -113,7 +113,9 @@ if __name__ == "__main__":
         elif 'who are you' in query:
             speak("I am a virtual assistant developed and programmed by the Cornerstone team")
 
-
+        elif 'open PyCharm' in query:
+            codePath = "/Applications/PyCharm CE.app" #that's the code path.
+            os.startfile(codePath)
 
         elif 'time' in query:
             strTime = datetime.datetime.now().strftime("%H:%M:%S")    
