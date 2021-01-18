@@ -14,19 +14,25 @@ import random
 import string 
 import matplotlib 
 import matplotlib.pyplot as plt
-
+import sqlite3
 # dependencies 
 # pip install pyowm
 # pip install SpeechRecognition
 # pip install wikipedia
 # pip install pyttsx3
 # pip install --user pywin 
-# pywin install pyaudio 
+# pywin install pyaudio
+import pyaudio
 
 username = getpass.getuser()
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
 engine.setProperty('voice', voices[0].id)
+
+#prep for jokes
+joke_phrases = ["Alright this is one of my favorites","Okay","Try to not laugh at this one","Here comes a funny one","Alright"]
+conn = sqlite3.connect("jokes_db.db")
+cur = conn.cursor()
 
 def speak(audio):
     engine.say(audio)
@@ -199,17 +205,25 @@ if __name__ == "__main__":
                   
             # Play Music
 
-            elif 'play music' in query:
+        elif 'play music' in query:
             music_dir = 'C:\Desktop\virtual-assistant-CJ-main\songs'
             songs = os.listdir(music_dir)
             print(songs)
             os.startfile(os.path.join(music_dir, songs[0]))
             
-        
+        #jokes
 
+        elif "tell me a joke" in query:
+            print(random.choice(joke_phrases))
+            #INSERT INTO "main"."Jokes"("Id","Joke") VALUES (NULL,"Insert joke here");
+            joke = 'SELECT Joke From Jokes ORDER BY RANDOM() LIMIT 1'
+            speak(joke)
 
-        
-        
+        elif "add a joke" in query:
+            speak("what joke would you like me to add")
+            new_joke = query
+            cur.execute("INSERT INTO main.Jokes(Id,Joke) VALUES (NULL,{new_joke})")
+            speak("Thats a good one")
 
 
         
