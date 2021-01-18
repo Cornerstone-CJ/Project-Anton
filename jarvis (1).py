@@ -14,21 +14,31 @@ import random
 import string 
 import matplotlib 
 import matplotlib.pyplot as plt
-
+import sqlite3
 # dependencies 
 # pip install pyowm
 # pip install SpeechRecognition
 # pip install wikipedia
 # pip install pyttsx3
 # pip install --user pywin 
+<<<<<<< HEAD
 # pywin install pyaudio 
 # pip install pyowm
 # pip install matplotlib
+=======
+# pywin install pyaudio
+import pyaudio
+>>>>>>> 45d6dc88e7bab0dfb2927792d8fd764bfa6c8802
 
 username = getpass.getuser()
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
 engine.setProperty('voice', voices[0].id)
+
+#prep for jokes
+joke_phrases = ["Alright this is one of my favorites","Okay","Try to not laugh at this one","Here comes a funny one","Alright"]
+conn = sqlite3.connect("jokes_db.db")
+cur = conn.cursor()
 
 def speak(audio):
     engine.say(audio)
@@ -115,7 +125,9 @@ if __name__ == "__main__":
         elif 'who are you' in query:
             speak("I am a virtual assistant developed and programmed by the Cornerstone team")
 
-
+        elif 'open PyCharm' in query:
+            codePath = "/Applications/PyCharm CE.app" #that's the code path.
+            os.startfile(codePath)
 
         elif 'time' in query:
             strTime = datetime.datetime.now().strftime("%H:%M:%S")    
@@ -176,6 +188,9 @@ if __name__ == "__main__":
             temp = weather.temperature(unit='celsius')
             tem=(temp['temp'])
             speak(f"The temperature in {city} is {tem} degree celsius")
+                                         
+            # Password Generator
+                                         
         elif 'password' in query:
             lowlet=string.ascii_lowercase
             letters= string.ascii_letters
@@ -193,6 +208,31 @@ if __name__ == "__main__":
             speak("Your new password has been generated")
             print(f'Password: {"".join(lst[0:length])}')
             
+                  
+            # Play Music
+
+        elif 'play music' in query:
+            music_dir = 'C:\Desktop\virtual-assistant-CJ-main\songs'
+            songs = os.listdir(music_dir)
+            print(songs)
+            os.startfile(os.path.join(music_dir, songs[0]))
+            
+        #jokes
+
+        elif "tell me a joke" in query:
+            print(random.choice(joke_phrases))
+            #INSERT INTO "main"."Jokes"("Id","Joke") VALUES (NULL,"Insert joke here");
+            joke = 'SELECT Joke From Jokes ORDER BY RANDOM() LIMIT 1'
+            speak(joke)
+
+        elif "add a joke" in query:
+            speak("what joke would you like me to add")
+            new_joke = query
+            cur.execute("INSERT INTO main.Jokes(Id,Joke) VALUES (NULL,{new_joke})")
+            speak("Thats a good one")
+
+
+        
         
         # ideas --> spotify, Jarvis? Might need our own name yk, directly query google, jokes/easter eggs if long pause or something 
 
