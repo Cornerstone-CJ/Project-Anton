@@ -15,14 +15,17 @@ import string
 import matplotlib 
 import matplotlib.pyplot as plt
 import sqlite3
+from pygame import mixer 
 # dependencies 
 # pip install pyowm
 # pip install SpeechRecognition
 # pip install wikipedia
 # pip install pyttsx3
 # pip install --user pywin 
-# pywin install pyaudio
-import pyaudio
+# pywin install pyaudio 
+# pip install pyowm
+# pip install matplotlib
+# pip install pygame 
 
 username = getpass.getuser()
 engine = pyttsx3.init('sapi5')
@@ -131,7 +134,7 @@ if __name__ == "__main__":
             speak("I can only plot linear regression graphs. Please enter the x axis values below")
             x=list(map(int,input("X Values: ").split(","))) 
             speak("Please enter the y axis values below")
-            y=list(map(int,input("Y Values").split(","))) 
+            y=list(map(int,input("Y Values: ").split(","))) 
             if len(x)!= len(y):
                 while len(x) != len(y):
                     if len(x)> len(y):
@@ -206,10 +209,17 @@ if __name__ == "__main__":
             # Play Music
 
         elif 'play music' in query:
-            music_dir = 'C:\Desktop\virtual-assistant-CJ-main\songs'
-            songs = os.listdir(music_dir)
-            print(songs)
-            os.startfile(os.path.join(music_dir, songs[0]))
+            curr_dir = os.path.dirname(os.path.abspath(__file__)) 
+            music_dir = os.path.join(curr_dir, "songs")
+            songs_list = os.listdir(music_dir)
+            for song in songs_list:
+                print(song)
+            
+            mixer.init()
+            test_song = "songs/Uptown Funk.mp3"
+            mixer.music.load(os.path.join(curr_dir, test_song))
+            mixer.music.play()
+            
             
         #jokes
 
