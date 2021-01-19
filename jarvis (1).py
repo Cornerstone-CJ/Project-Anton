@@ -16,6 +16,9 @@ import matplotlib
 import matplotlib.pyplot as plt
 import sqlite3
 from pygame import mixer 
+from rockPaperScissors import game
+import re 
+
 # dependencies 
 # pip install pyowm
 # pip install SpeechRecognition
@@ -238,8 +241,26 @@ if __name__ == "__main__":
             cur.execute(f"INSERT INTO main.Jokes(Id,Joke) VALUES (NULL,{new_joke})")
             speak("Thats a good one")
 
-
+        # Rock Paper Scissors 
         
+        # game is in terminal atm but gui soon, also plan to modify to play by using voice 
+
+        elif "rock paper scissors" in query:
+            pattern: str = (r'[0-9]+')
+            value: str = input("Set score limit (for example 10): ")
+            
+            while not re.match(pattern, value):
+                print("Please enter a number")
+                value = input("Set score limit (for example 10): ")
+
+            limit: int = int(value)
+
+            if int(input("How many players? (1 or 2): ")) == 2:
+                game(limit, two_players = True)
+            else:
+                game(limit)
+
+            print()
         
         # ideas --> spotify, Jarvis? Might need our own name yk, directly query google, jokes/easter eggs if long pause or something 
 
