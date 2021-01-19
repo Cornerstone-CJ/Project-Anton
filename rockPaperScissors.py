@@ -83,7 +83,6 @@ def game(limit: int, two_players: bool = False) -> None:
 
 if __name__ == '__main__':
     import re 
-    nums: Set[str] = {str(v) for v in range(10)}
     pattern: str = (r'[0-9]+')
     val: str = input("Set score limit (for example 10): ")
     
