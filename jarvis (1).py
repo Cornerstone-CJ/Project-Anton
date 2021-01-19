@@ -18,6 +18,7 @@ import sqlite3
 from pygame import mixer 
 from rockPaperScissors import game
 import re 
+import pathlib
 
 # dependencies 
 # pip install pyowm
@@ -125,9 +126,29 @@ if __name__ == "__main__":
         elif 'who are you' in query:
             speak("I am a virtual assistant developed and programmed by the Cornerstone team")
 
-        elif 'open PyCharm' in query:
-            codePath = "/Applications/PyCharm CE.app" #that's the code path.
-            os.startfile(codePath)
+        elif 'open pycharm' in query:
+            try:
+                codePath = "/Applications/PyCharm CE.app" 
+                os.startfile(codePath)
+            except:
+                try:
+                    jetBrainDir = "C:/Program Files/JetBrains/"
+                    jetbrainApps = os.listdir(jetBrainDir)
+                    for f in jetbrainApps:
+                        if "PyCharm" in f:
+                            pycharmDir = os.path.join(jetBrainDir, f)
+                            break
+                    binDir = os.path.join(pycharmDir, "bin")
+                    binFiles = os.listdir(binDir)
+                    pycharmExecutablePattern = (r'pycharm[0-9]{2}.exe')
+                    for f in binFiles:
+                        if re.match(pycharmExecutablePattern, f):
+                            absolutePyCharmDir = os.path.join(binDir, f)
+                            break
+                    
+                    os.startfile(absolutePyCharmDir)
+                except:
+                    print("Could not find path for PyCharm")
 
         elif 'time' in query:
             strTime = datetime.datetime.now().strftime("%H:%M:%S")    
@@ -155,6 +176,7 @@ if __name__ == "__main__":
             title= input("Name: ")
             plt.title(title)
             plt.show()
+
         elif 'calculator' in query:
             subprocess.Popen('C:\\Windows\\System32\\calc.exe')
 
@@ -178,6 +200,7 @@ if __name__ == "__main__":
                 chrome(chrome_path, url)
             except:
                 default(url)
+
         elif 'weather' in query:
             owm = pyowm.OWM('bec01343c8004631bd4c57dd2ea78a8b')
             speak("Please enter the name of the city you want the weather for:")
