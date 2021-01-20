@@ -3,7 +3,7 @@ from random import randrange
 
 def format_str(string: str) -> str:
     '''Uses bit operations to convert the first letter to uppercase'''
-    chars = list(string)
+    chars: List[str] = list(string)
     chars[0] = chr(ord(chars[0]) & ~32)
 
     return "".join(chars) 
@@ -46,7 +46,7 @@ def game(limit: int, two_players: bool = False) -> None:
 
     moves_set: set = {v for v in moves}
     moves_list: list = [v for v in moves]
-    values: Union[set, list] = moves_set if two_players else moves_list
+    values: Union[Set[str], List[str]] = moves_set if two_players else moves_list
 
     over: bool = False
     scores: list = [0,0]
