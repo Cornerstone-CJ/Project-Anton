@@ -59,7 +59,7 @@ def greet():
     speak("I am Anton. Please tell me, how may I help you?")  
     print('''Here is a list of things I can do:
     1. Open websites like google, netflix, whatsapp etc.
-    2. Open apps in your computer
+    2. Open apps in your computer like PyCharm and Calculator
     3. Tell jokes
     4. Play Music
     5. Give the weather forecast in any desired city
@@ -149,6 +149,8 @@ if __name__ == "__main__":
                     os.startfile(absolutePyCharmDir)
                 except:
                     print("Could not find path for PyCharm")
+                    
+              
 
         elif 'time' in query:
             strTime = datetime.datetime.now().strftime("%H:%M:%S")    
