@@ -1,5 +1,11 @@
-from typing import Dict, Callable, Union, List, Set
+from typing import Dict, List, Set, Optional, Match
 from random import randrange
+import re 
+import anton 
+import sys 
+from termcolor import colored 
+
+HIGHLIGHT = "on_green"
 
 def format_str(string: str) -> str:
     '''Uses bit operations to convert the first letter to uppercase'''
@@ -9,12 +15,15 @@ def format_str(string: str) -> str:
     return "".join(chars) 
 
 
-def play_human(values: set) -> str:
-    move: str = input("Enter either Rock, Paper or Scissors: ").lower() 
+def play_human(values: set) -> Optional[str]:
+    move = anton.Commands().lower()
+    if move == "quit":
+        return None
     while move not in values:
-        print("Enter a valid move")
-        move = input("Enter either Rock, Paper or Scissors: ").lower() 
-    
+        anton.speak("Sorry can you say that again")
+        move = anton.Commands().lower()
+        if move == "quit":
+            return None
     return move 
 
 
@@ -29,14 +38,18 @@ def display(scores: List[int], val1: str, val2: str) -> None:
     print(f"Player 1 played {format_str(val1)}")
     print(f"Player 2 played {format_str(val2)}")
     print()
-    print(f"Player 1 -->  {scores[0]}     {scores[1]}  <-- Player 2")
+    print(colored(f"Player 1 -->  {scores[0]}     {scores[1]}  <-- Player 2", color="magenta"))
 
 
-def game(limit: int, two_players: bool = False) -> None:
-    func_map: Dict[str, Callable] = {
-    "human" : play_human,
-    "computer" : random_ai
-    } 
+def display_gui(scores: List[int], val1: str, val2: str) -> None:
+    pass 
+
+def game(limit: int) -> None:
+
+    anton.speak('''To play the game say either rock, paper or scissors each round. 
+    The winner is the first to reach the limit''')
+
+    anton.speak("You may begin")
 
     moves: Dict[str, str] = {
         "rock" : "scissors",
@@ -44,23 +57,22 @@ def game(limit: int, two_players: bool = False) -> None:
         "paper" : "rock"
     }
 
-    moves_set: set = {v for v in moves}
-    moves_list: list = [v for v in moves]
-    values: Union[Set[str], List[str]] = moves_set if two_players else moves_list
-
+    moves_set: Set[str] = {v for v in moves}
+    moves_list: List[str] = [v for v in moves]
+  
     over: bool = False
     scores: list = [0,0]
-    p1: str = "human"
-    p2: str = "human" if two_players else "computer"
- 
+
     while not over:
         print()
 
         # player 1 
-        val1: str = func_map[p1](moves_set)
+        val1: Optional[str] = play_human(moves_set) 
+        if val1 is None:
+            break  
 
         # player 2 
-        val2: str = func_map[p2](values)
+        val2: str = random_ai(moves_list)
 
         if moves[val1] == val2:
             scores[0] += 1
@@ -69,31 +81,39 @@ def game(limit: int, two_players: bool = False) -> None:
 
         # display scores 
         display(scores, val1, val2)
+        display_gui(scores, val1, val2)
 
         # check if game over 
         if max(scores) == limit:
             over = True 
 
     print()
+
     if scores[0] > scores[1]:
-        print("Winner is player 1")
+        print(colored("Winner is player 1", color = "green"))
+        anton.speak("Game over. The winner is player 1") 
+    elif scores[1] > scores[0]:
+        print(colored("Winner is player 2", color = "green"))
+        anton.speak("Game over. The winner is player 2")
     else:
-        print("Winner is player 2")
-
-
-if __name__ == '__main__':
-    import re 
-    pattern: str = (r'[0-9]+')
-    val: str = input("Set score limit (for example 10): ")
+        print(colored("Draw!", color = "green"))
+        anton.speak("Game over. It is a draw")
     
-    while not re.match(pattern, val):
-        print("Please enter a number")
-        val = input("Set score limit (for example 10): ")
+if __name__ == '__main__':
+    pattern: str = (r'([0-9]+){1}')
+    anton.speak("How many rounds would you like?")
+    val: str = anton.Commands()
+    if val == "quit":
+        sys.exit()
+    match: Optional[Match[str]] = re.match(pattern, val)
+    while not match or match.group(0) == '0':
+        anton.speak("Please say a valid number of rounds")
+        val = anton.Commands()
+        match = re.match(pattern, val)
 
-    limit: int = int(val)
+    limit: int = int(match.group(0))
 
-    if int(input("How many players? (1 or 2): ")) == 2:
-        game(limit, two_players = True)
-    else:
-        game(limit)
+    game(limit)
+
+  
     

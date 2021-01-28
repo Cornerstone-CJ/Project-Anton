@@ -16,9 +16,11 @@ import matplotlib
 import matplotlib.pyplot as plt
 import sqlite3
 from pygame import mixer 
-from rockPaperScissors import game
+import rockPaperScissors 
 import re 
 import pathlib
+import sys 
+from termcolor import colored
 
 # dependencies 
 # pip install pyowm
@@ -30,6 +32,7 @@ import pathlib
 # pip install pyowm
 # pip install matplotlib
 # pip install pygame 
+# pip install termcolor 
 
 username = getpass.getuser()
 engine = pyttsx3.init('sapi5')
@@ -72,18 +75,18 @@ def greet():
 def Commands():
     r = sr.Recognizer()
     with sr.Microphone() as source:
-        print("Listening...")
+        print(colored("Listening...", color="white"))
         r.pause_threshold = 1
 
         audio = r.listen(source)
 
     try:
-        print("Recognizing...")    
+        print(colored("Recognizing...", color="green"))    
         query = r.recognize_google(audio, language='en-in')
-        print(f"User said: {query}\n")
+        print(colored(f"User said: {query}\n", color="cyan"))
 
-    except Exception as e:    
-        print("Say that again please...")  
+    except:    
+        print(colored("Please say that again...", color="red"))  
         return ""
     return query
 
@@ -149,6 +152,7 @@ if __name__ == "__main__":
                     os.startfile(absolutePyCharmDir)
                 except:
                     print("Could not find path for PyCharm")
+                    speak("Could not find path for PyCharm")
 
         elif 'time' in query:
             strTime = datetime.datetime.now().strftime("%H:%M:%S")    
@@ -269,25 +273,33 @@ if __name__ == "__main__":
         # game is in terminal atm but gui soon, also plan to modify to play by using voice 
 
         elif "rock paper scissors" in query:
-            pattern: str = (r'[0-9]+')
-            value: str = input("Set score limit (for example 10): ")
-            
-            while not re.match(pattern, value):
-                print("Please enter a number")
-                value = input("Set score limit (for example 10): ")
+            pattern = (r'([0-9]+){1}')
+            speak("How many rounds would you like?")
+            val = Commands()
+            if val == "quit":
+                sys.exit()
+            match = re.match(pattern, val)
+            while not match or match.group(0) == '0':
+                speak("Please say a valid number of rounds")
+                val = Commands()
+                match = re.match(pattern, val)
 
-            limit: int = int(value)
+            limit: int = int(match.group(0))
 
-            if int(input("How many players? (1 or 2): ")) == 2:
-                game(limit, two_players = True)
-            else:
-                game(limit)
+            rockPaperScissors.game(limit)
 
             print()
          
 
-        
-        
+        # stop listening (ignores when you say things that should be commands)
 
+        elif "stop listening" in query:
+            listening = False
+            while not listening:
+                new_query = Commands().lower()
+                if "continue listening" in new_query:
+                    break 
 
+    sys.exit()
+    
         
