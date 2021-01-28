@@ -252,13 +252,13 @@ if __name__ == "__main__":
             music_dir = os.path.join(curr_dir, "songs/")
             screen = pygame.display.set_mode((500, 500))
             x = os.listdir(music_dir)
-            a = " "
+            a = music_dir + str(x[0])
             pygame.mixer.init()
             random.shuffle(x)
             print(f"Now playing {x[0]}")
             pygame.mixer.music.load(a)
             pygame.mixer.music.play()
-            a = music_dir + str(x[0])
+            
             inp = input()
             running = True
             while running:
