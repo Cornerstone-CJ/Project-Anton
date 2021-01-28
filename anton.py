@@ -19,6 +19,8 @@ from pygame import mixer
 from rockPaperScissors import game
 import re 
 import pathlib
+from pygame.locals import * 
+import pygame
 
 # dependencies 
 # pip install pyowm
@@ -236,17 +238,25 @@ if __name__ == "__main__":
                   
             # Play Music
 
-        elif 'play music' in query:
+        elif 'play music' or 'music' or 'song' in query:
             curr_dir = os.path.dirname(os.path.abspath(__file__)) 
-            music_dir = os.path.join(curr_dir, "songs")
-            songs_list = os.listdir(music_dir)
-            for song in songs_list:
-                print(song)
+            music_dir = os.path.join(curr_dir, "songs/")
+            screen = pygame.display.set_mode((500, 500))
+            x = os.listdir(music_dir)
+            a= " "
+            pygame.mixer.init()
+            random.shuffle(x)
+            print(f"Now playing {x[0]}")
             
-            mixer.init()
-            test_song = "songs/Uptown Funk.mp3"
-            mixer.music.load(os.path.join(curr_dir, test_song))
-            mixer.music.play()
+            a = music_dir + str(x[0])
+            pygame.mixer.music.load(a)
+            pygame.mixer.music.play()
+            inp = input()
+            running = True
+            while running: 
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                      running = False
             
             
         #jokes
