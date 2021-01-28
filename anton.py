@@ -15,12 +15,13 @@ import string
 import matplotlib 
 import matplotlib.pyplot as plt
 import sqlite3
-from pygame import mixer 
 import rockPaperScissors 
 import re 
 import pathlib
 import sys 
 from termcolor import colored
+from pygame.locals import * 
+import pygame
 
 # dependencies 
 # pip install pyowm
@@ -62,7 +63,7 @@ def greet():
     speak("I am Anton. Please tell me, how may I help you?")  
     print('''Here is a list of things I can do:
     1. Open websites like google, netflix, whatsapp etc.
-    2. Open apps in your computer
+    2. Open apps in your computer like PyCharm and Calculator
     3. Tell jokes
     4. Play Music
     5. Give the weather forecast in any desired city
@@ -238,17 +239,25 @@ if __name__ == "__main__":
                   
             # Play Music
 
-        elif 'play music' in query:
+        elif 'play music' in query or 'play song' in query:
             curr_dir = os.path.dirname(os.path.abspath(__file__)) 
-            music_dir = os.path.join(curr_dir, "songs")
-            songs_list = os.listdir(music_dir)
-            for song in songs_list:
-                print(song)
+            music_dir = os.path.join(curr_dir, "songs/")
+            screen = pygame.display.set_mode((500, 500))
+            x = os.listdir(music_dir)
+            a= " "
+            pygame.mixer.init()
+            random.shuffle(x)
+            print(f"Now playing {x[0]}")
             
-            mixer.init()
-            test_song = "songs/Uptown Funk.mp3"
-            mixer.music.load(os.path.join(curr_dir, test_song))
-            mixer.music.play()
+            a = music_dir + str(x[0])
+            pygame.mixer.music.load(a)
+            pygame.mixer.music.play()
+            inp = input()
+            running = True
+            while running: 
+                for event in pygame.event.get():
+                    if event.type == pygame.locals.QUIT:
+                      running = False
             
             
         #jokes
