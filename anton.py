@@ -1,7 +1,7 @@
 import pyttsx3
-import speech_recognition as sr 
+import speech_recognition as sr
 import datetime
-import wikipedia 
+import wikipedia
 import webbrowser
 import smtplib
 import os
@@ -9,19 +9,19 @@ import subprocess
 from email.message import EmailMessage
 import getpass
 import pyowm
-import string 
+import string
 import random
-import string 
-import matplotlib 
+import string
+import matplotlib
 import matplotlib.pyplot as plt
 import sqlite3
-from pygame import mixer 
+from pygame import mixer
 from rockPaperScissors import game
-import re 
+import re
 import pathlib
-from pygame.locals import * 
+from pygame.locals import *
 import pygame
-
+from sys import exit
 # dependencies 
 # pip install pyowm
 # pip install SpeechRecognition
@@ -38,27 +38,30 @@ engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
 engine.setProperty('voice', voices[0].id)
 
-#prep for jokes
-joke_phrases = ["Alright this is one of my favorites","Okay","Try to not laugh at this one","Here comes a funny one","Alright"]
+# prep for jokes
+joke_phrases = ["Alright this is one of my favorites", "Okay", "Try to not laugh at this one", "Here comes a funny one",
+                "Alright"]
 conn = sqlite3.connect("jokes_db.db")
 cur = conn.cursor()
+
 
 def speak(audio):
     engine.say(audio)
     engine.runAndWait()
 
+
 def greet():
     hour = int(datetime.datetime.now().hour)
-    if hour>=0 and hour<12:
+    if hour >= 0 and hour < 12:
         speak("Good Morning!")
 
-    elif hour>=12 and hour<16:
-        speak("Good Afternoon!")   
+    elif hour >= 12 and hour < 16:
+        speak("Good Afternoon!")
 
     else:
-        speak("Good Evening!")  
+        speak("Good Evening!")
 
-    speak("I am Anton. Please tell me, how may I help you?")  
+    speak("I am Anton. Please tell me, how may I help you?")
     print('''Here is a list of things I can do:
     1. Open websites like google, netflix, whatsapp etc.
     2. Open apps in your computer like PyCharm and Calculator
@@ -69,7 +72,8 @@ def greet():
     7. Generate a random password 
     8. Play rock paper scissors
 
-    ''')     
+    ''')
+
 
 def Commands():
     r = sr.Recognizer()
@@ -80,33 +84,36 @@ def Commands():
         audio = r.listen(source)
 
     try:
-        print("Recognizing...")    
+        print("Recognizing...")
         query = r.recognize_google(audio, language='en-in')
         print(f"User said: {query}\n")
 
-    except Exception as e:    
-        print("Say that again please...")  
+    except Exception as e:
+        print("Say that again please...")
         return ""
     return query
 
+
 def chrome(chrome_path, url):
-    webbrowser.get(using = chrome_path).open(url)
-    
+    webbrowser.get(using=chrome_path).open(url)
+
+
 def default(url):
     webbrowser.open(url)
 
+
 if __name__ == "__main__":
     chrome_path = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s"
-    end = ("quit", "close", "leave","bye")
+    end = ("quit", "close", "leave", "bye")
     greet()
-    done= False
+    done = False
     while not done:
         url = ""
         query = Commands().lower()
         for val in end:
             if val == query:
                 speak("Have a good day.")
-                done = True  
+                done = True
 
         if 'wikipedia' in query:
             speak('Searching Wikipedia...')
@@ -123,14 +130,14 @@ if __name__ == "__main__":
             url = "google.com"
 
         elif 'netflix' in query:
-            url = "netflix.com" 
+            url = "netflix.com"
 
         elif 'who are you' in query:
             speak("I am Anton, a virtual assistant developed and programmed by the Cornerstone team")
 
         elif 'open pycharm' in query:
             try:
-                codePath = "/Applications/PyCharm CE.app" 
+                codePath = "/Applications/PyCharm CE.app"
                 os.startfile(codePath)
             except:
                 try:
@@ -147,58 +154,60 @@ if __name__ == "__main__":
                         if re.match(pycharmExecutablePattern, f):
                             absolutePyCharmDir = os.path.join(binDir, f)
                             break
-                    
+
                     os.startfile(absolutePyCharmDir)
                 except:
                     print("Could not find path for PyCharm")
-                    
-              
+
+
 
         elif 'time' in query:
-            strTime = datetime.datetime.now().strftime("%H:%M:%S")    
+            strTime = datetime.datetime.now().strftime("%H:%M:%S")
             speak(f"The time is {strTime}")
-        
+
         elif 'graph' in query:
             speak("I can only plot linear regression graphs. Please enter the x axis values below")
-            x=list(map(int,input("X Values: ").split(","))) 
+            x = list(map(int, input("X Values: ").split(",")))
             speak("Please enter the y axis values below")
-            y=list(map(int,input("Y Values: ").split(","))) 
-            if len(x)!= len(y):
+            y = list(map(int, input("Y Values: ").split(",")))
+            if len(x) != len(y):
                 while len(x) != len(y):
-                    if len(x)> len(y):
+                    if len(x) > len(y):
                         x.pop()
-                    else: 
+                    else:
                         y.pop()
 
             plt.plot(x, y)
             speak("Please enter the names of x and y labels below")
-            xlab= input("X label: ")
-            ylab= input("Y label: ")
+            xlab = input("X label: ")
+            ylab = input("Y label: ")
             plt.xlabel(xlab)
             plt.ylabel(ylab)
             speak("Enter the name of your graph")
-            title= input("Name: ")
+            title = input("Name: ")
             plt.title(title)
             plt.show()
 
         elif 'calculator' in query:
             subprocess.Popen('C:\\Windows\\System32\\calc.exe')
 
-        elif 'open teams' in query: 
+        elif 'open teams' in query:
             try:
-                subprocess.Popen(f'C:/Users/{username}/AppData/Local/Microsoft/Teams/Update.exe --processStart "Teams.exe"')
+                subprocess.Popen(
+                    f'C:/Users/{username}/AppData/Local/Microsoft/Teams/Update.exe --processStart "Teams.exe"')
             except:
                 try:
                     subprocess.Popen(f'C:/Users/{username}/Downloads/Teams_windows_x64.exe')
                 except:
                     try:
-                        subprocess.Popen(f'C:/Users/{username.replace(" ", "")}/AppData/Local/Microsoft/Teams/Update.exe --processStart "Teams.exe"')
+                        subprocess.Popen(
+                            f'C:/Users/{username.replace(" ", "")}/AppData/Local/Microsoft/Teams/Update.exe --processStart "Teams.exe"')
                     except:
                         subprocess.Popen(f'C:/Users/{username.replace(" ", "")}/Downloads/Teams_windows_x64.exe')
 
         elif 'udemy' in query:
-            url = "udemy.com" 
-        
+            url = "udemy.com"
+
         if url:
             try:
                 chrome(chrome_path, url)
@@ -208,62 +217,65 @@ if __name__ == "__main__":
         elif 'weather' in query:
             owm = pyowm.OWM('bec01343c8004631bd4c57dd2ea78a8b')
             speak("Please enter the name of the city you want the weather for:")
-            city= input("City Name:")
+            city = input("City Name:")
             loc = owm.weather_manager().weather_at_place(city)
             weather = loc.weather
             # temperature
             temp = weather.temperature(unit='celsius')
-            tem=(temp['temp'])
+            tem = (temp['temp'])
             speak(f"The temperature in {city} is {tem} degree celsius")
-                                         
+
             # Password Generator
-                                         
+
         elif 'password' in query:
-            lowlet=string.ascii_lowercase
-            letters= string.ascii_letters
-            uplet= string.ascii_uppercase
-            punc= string.punctuation
-            lst= []
+            lowlet = string.ascii_lowercase
+            letters = string.ascii_letters
+            uplet = string.ascii_uppercase
+            punc = string.punctuation
+            lst = []
             lst.extend(list(lowlet))
             lst.extend(list(letters))
             lst.extend(list(uplet))
             lst.extend(list(punc))
             random.shuffle(lst)
             speak("Please enter the required password length below")
-            length= int(input("Enter the required password length: \n"))
-            password= lst[0:length]
+            length = int(input("Enter the required password length: \n"))
+            password = lst[0:length]
             speak("Your new password has been generated")
             print(f'Password: {"".join(lst[0:length])}')
-            
-                  
+
             # Play Music
 
         elif 'play music' or 'music' or 'song' in query:
-            curr_dir = os.path.dirname(os.path.abspath(__file__)) 
+            curr_dir = os.path.dirname(os.path.abspath(__file__))
             music_dir = os.path.join(curr_dir, "songs/")
             screen = pygame.display.set_mode((500, 500))
             x = os.listdir(music_dir)
-            a= " "
+            a = " "
             pygame.mixer.init()
             random.shuffle(x)
             print(f"Now playing {x[0]}")
-            
-            a = music_dir + str(x[0])
             pygame.mixer.music.load(a)
             pygame.mixer.music.play()
+            a = music_dir + str(x[0])
             inp = input()
             running = True
-            while running: 
+            while running:
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
-                      running = False
-            
-            
-        #jokes
+                        pygame.mixer.music.stop()
+                        pygame.display.quit()
+                        pygame.quit()
+                        exit()
+                        running = False
+
+
+
+        # jokes
 
         elif "tell me a joke" in query:
             print(random.choice(joke_phrases))
-            #INSERT INTO "main"."Jokes"("Id","Joke") VALUES (NULL,"Insert joke here");
+            # INSERT INTO "main"."Jokes"("Id","Joke") VALUES (NULL,"Insert joke here");
             joke = cur.execute('SELECT Joke From Jokes ORDER BY RANDOM() LIMIT 1')
 
             speak(joke)
@@ -277,13 +289,13 @@ if __name__ == "__main__":
             speak("Thats a good one")
 
         # Rock Paper Scissors 
-        
+
         # game is in terminal atm but gui soon, also plan to modify to play by using voice 
 
         elif "rock paper scissors" in query:
             pattern: str = (r'[0-9]+')
             value: str = input("Set score limit (for example 10): ")
-            
+
             while not re.match(pattern, value):
                 print("Please enter a number")
                 value = input("Set score limit (for example 10): ")
@@ -291,15 +303,8 @@ if __name__ == "__main__":
             limit: int = int(value)
 
             if int(input("How many players? (1 or 2): ")) == 2:
-                game(limit, two_players = True)
+                game(limit, two_players=True)
             else:
                 game(limit)
 
             print()
-         
-
-        
-        
-
-
-        
