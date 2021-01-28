@@ -5,7 +5,6 @@ import anton
 import sys 
 from termcolor import colored 
 
-HIGHLIGHT = "on_green"
 
 def format_str(string: str) -> str:
     '''Uses bit operations to convert the first letter to uppercase'''
