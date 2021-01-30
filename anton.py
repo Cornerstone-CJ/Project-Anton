@@ -23,6 +23,7 @@ from termcolor import colored
 from pygame.locals import * 
 import pygame
 from sys import exit
+
 # dependencies 
 # pip install pyowm
 # pip install SpeechRecognition
@@ -46,6 +47,19 @@ joke_phrases = ["Alright this is one of my favorites", "Okay", "Try to not laugh
 conn = sqlite3.connect("jokes_db.db")
 cur = conn.cursor()
 
+def anton_help():
+    print('''Here is a list of things I can do:
+    1. Open websites like google, netflix, whatsapp etc.
+    2. Open apps in your computer like PyCharm and Calculator
+    3. Tell jokes
+    4. Play Music
+    5. Give the weather forecast in any desired city
+    6. Get information from wikipedia
+    7. Generate a random password 
+    8. Play rock paper scissors
+
+    ''')
+
 
 def speak(audio):
     engine.say(audio)
@@ -64,17 +78,7 @@ def greet():
         speak("Good Evening!")
 
     speak("I am Anton. Please tell me, how may I help you? Just say help to see my features again.")
-    print('''Here is a list of things I can do:
-    1. Open websites like google, netflix, whatsapp etc.
-    2. Open apps in your computer like PyCharm and Calculator
-    3. Tell jokes
-    4. Play Music
-    5. Give the weather forecast in any desired city
-    6. Get information from wikipedia
-    7. Generate a random password 
-    8. Play rock paper scissors
-
-    ''')
+    anton_help()
 
 
 def Commands():
@@ -324,17 +328,7 @@ if __name__ == "__main__":
             print()
         
         elif "help" in query: 
-            print('''Here is a list of things I can do:
-            1. Open websites like google, netflix, whatsapp etc.
-            2. Open apps in your computer like PyCharm and Calculator
-            3. Tell jokes
-            4. Play Music
-            5. Give the weather forecast in any desired city
-            6. Get information from wikipedia
-            7. Generate a random password 
-            8. Play rock paper scissors
-        
-            ''')
+            anton_help()
             
         # stop listening (ignores when you say things that should be commands)
 
