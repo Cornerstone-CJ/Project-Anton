@@ -294,11 +294,12 @@ if __name__ == "__main__":
         # game is in terminal atm but gui soon, also plan to modify to play by using voice 
 
         elif "rock paper scissors" in query:
+            speak("welcome, you can quit the game anytime by saying the command 'quit'")
             pattern = (r'([0-9]+){1}')
             speak("How many rounds would you like?")
             val = Commands()
             if val == "quit":
-                sys.exit()
+                continue
             match = re.match(pattern, val)
             while not match or match.group(0) == '0':
                 speak("Please say a valid number of rounds")
@@ -318,7 +319,7 @@ if __name__ == "__main__":
             listening = False
             while not listening:
                 new_query = Commands().lower()
-                if "continue listening" in new_query:
+                if "continue listening" in new_query or "resume listening" in new_query:
                     break 
 
     sys.exit()
