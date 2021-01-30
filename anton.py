@@ -305,11 +305,10 @@ if __name__ == "__main__":
             row = cur.fetchone()
             for r in row:
                 speak(r)
+                break
 
 
         # Rock Paper Scissors 
-
-        # game is in terminal atm but gui soon, also plan to modify to play by using voice 
 
         elif "rock paper scissors" in query:
             speak("welcome, you can quit the game anytime by saying the command 'quit'")
