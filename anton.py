@@ -292,7 +292,7 @@ if __name__ == "__main__":
 
         # jokes
         elif "tell me a joke" or "jokes" or "joke" in query:
-            print(random.choice(joke_phrases))
+            speak(random.choice(joke_phrases))
             # INSERT INTO "main"."Jokes"("Id","Joke") VALUES (NULL,"Insert joke here");
             cur.execute('SELECT Joke From Jokes ORDER BY RANDOM() LIMIT 1')
             row = cur.fetchone()
