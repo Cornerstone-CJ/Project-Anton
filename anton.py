@@ -321,7 +321,7 @@ if __name__ == "__main__":
                 val = Commands()
                 match = re.match(pattern, val)
 
-            limit: int = int(match.group(0))
+            limit = int(match.group(0))
 
             rockPaperScissors.game(limit)
 
