@@ -46,7 +46,7 @@ Use the command "What is the Weather?".
 
 ### Graph Plotting
 
-Use the command "Plot graph". Note that ou have to close the graph window for Anton to continue listening.
+Use the command "Plot graph". Note that you have to close the graph window for Anton to continue listening.
 
 ### Launching Applications (Only availaible for Windows OS)
 
