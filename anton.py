@@ -291,8 +291,8 @@ if __name__ == "__main__":
                     pygame.mixer.music.rewind()
 
         # jokes
-        elif "tell me a joke" or "jokes" or "joke" in query:
-            print(random.choice(joke_phrases))
+        elif "tell me a joke" in query or "jokes" in query or "joke" in query:
+            speak(random.choice(joke_phrases))
             # INSERT INTO "main"."Jokes"("Id","Joke") VALUES (NULL,"Insert joke here");
             cur.execute('SELECT Joke From Jokes ORDER BY RANDOM() LIMIT 1')
             row = cur.fetchone()
