@@ -63,7 +63,7 @@ def greet():
     else:
         speak("Good Evening!")
 
-    speak("I am Anton. Please tell me, how may I help you?")
+    speak("I am Anton. Please tell me, how may I help you? Just say help to see my features again.")
     print('''Here is a list of things I can do:
     1. Open websites like google, netflix, whatsapp etc.
     2. Open apps in your computer like PyCharm and Calculator
@@ -247,28 +247,40 @@ if __name__ == "__main__":
 
             # Play Music
 
-        elif 'play music' in query or 'play song' in query:
+        elif 'music' in query or 'play song' in query:
             curr_dir = os.path.dirname(os.path.abspath(__file__)) 
             music_dir = os.path.join(curr_dir, "songs/")
-            screen = pygame.display.set_mode((500, 500))
+            # screen = pygame.display.set_mode((500, 500))
+            
             x = os.listdir(music_dir)
+            random.shuffle(x)
             a = music_dir + str(x[0])
             pygame.mixer.init()
-            random.shuffle(x)
+            
             print(f"Now playing {x[0]}")
             pygame.mixer.music.load(a)
             pygame.mixer.music.play()
             
-            inp = input()
+            
             running = True
-            while running:
-                for event in pygame.event.get():
-                    if event.type == pygame.QUIT:
-                        pygame.mixer.music.stop()
-                        pygame.display.quit()
-                        pygame.quit()
-                        exit()
-                        running = False
+            
+            while True: 
+                inp = input("Press 's' to stop, 'p' to pause 'u' to unpause and 'r' to rewind: \n")
+                if inp=="s": 
+                    pygame.mixer.music.stop()  
+                    break
+                elif inp=="p":
+                    pygame.mixer.music.pause()
+                elif inp=="u":
+                    pygame.mixer.music.unpause()
+                elif inp=="r":
+                    pygame.mixer.music.rewind()
+
+                
+
+
+
+                
 
 
 
@@ -310,8 +322,20 @@ if __name__ == "__main__":
             rockPaperScissors.game(limit)
 
             print()
-         
-
+        
+        elif "help" in query: 
+            print('''Here is a list of things I can do:
+            1. Open websites like google, netflix, whatsapp etc.
+            2. Open apps in your computer like PyCharm and Calculator
+            3. Tell jokes
+            4. Play Music
+            5. Give the weather forecast in any desired city
+            6. Get information from wikipedia
+            7. Generate a random password 
+            8. Play rock paper scissors
+        
+            ''')
+            
         # stop listening (ignores when you say things that should be commands)
 
         elif "stop listening" in query:
