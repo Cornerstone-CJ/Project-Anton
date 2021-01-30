@@ -204,7 +204,21 @@ if __name__ == "__main__":
                         subprocess.Popen(
                             f'C:/Users/{username.replace(" ", "")}/AppData/Local/Microsoft/Teams/Update.exe --processStart "Teams.exe"')
                     except:
-                        subprocess.Popen(f'C:/Users/{username.replace(" ", "")}/Downloads/Teams_windows_x64.exe')
+                        try:
+                            subprocess.Popen(f'C:/Users/{username.replace(" ", "")}/Downloads/Teams_windows_x64.exe')
+                        except:
+                            print("could not find path")
+                            speak("could not find path")
+
+        elif "discord" in query:
+            try:
+                subprocess.Popen(f'C:/Users/{username}/AppData/Local/Discord/Update.exe --processStart Discord.exe')
+            except:
+                try:
+                    subprocess.Popen(f'C:/Users/{username.replace(" ", "")}/AppData/Local/Discord/Update.exe --processStart Discord.exe')
+                except:
+                    print("could not find path for Discord")
+                    speak("could not find path")
 
         elif 'udemy' in query:
             url = "udemy.com"
@@ -275,14 +289,6 @@ if __name__ == "__main__":
                     pygame.mixer.music.unpause()
                 elif inp=="r":
                     pygame.mixer.music.rewind()
-
-                
-
-
-
-                
-
-
 
         # jokes
 
