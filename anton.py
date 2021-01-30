@@ -174,7 +174,11 @@ if __name__ == "__main__":
             speak(f"The time is {strTime}")
 
         elif 'graph' in query:
-            speak("I can only plot linear regression graphs. Please enter the x axis values below")
+            speak('''I can only plot linear graphs.
+            Seperate entries with a comma, 
+            the first x should correspond to the first y and so on
+            ''')
+            speak("Please enter the x axis values below.")
             x = list(map(int, input("X Values: ").split(",")))
             speak("Please enter the y axis values below")
             y = list(map(int, input("Y Values: ").split(",")))
