@@ -298,6 +298,7 @@ if __name__ == "__main__":
             row = cur.fetchone()
             for r in row:
                 speak(r)
+                break
 
 
         # Rock Paper Scissors 
