@@ -89,6 +89,10 @@ Use the command "Rock Paper Scissors".
 <img src="images/rock-paper-scissors1.png" width="500">
 <img src="images/rock-paper-scissors2.png" width="500">
 
+### Jokes
+
+Use any of the commands -> "Joke", "Jokes" or " "Tell me a joke" to hear a random joke from Anton.
+
 ### To tell Anton to stop listening to commands
 
 Use the command "Stop listening".
