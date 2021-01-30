@@ -42,9 +42,12 @@ voices = engine.getProperty('voices')
 engine.setProperty('voice', voices[0].id)
 
 # prep for jokes
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+db_path = os.path.join(BASE_DIR, "jokes_db.db")
 joke_phrases = ["Alright this is one of my favorites", "Okay", "Try to not laugh at this one", "Here comes a funny one",
                 "Alright"]
-conn = sqlite3.connect("jokes_db.db")
+conn = sqlite3.connect(db_path)
 cur = conn.cursor()
 
 def anton_help():
