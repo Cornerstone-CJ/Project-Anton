@@ -80,8 +80,8 @@ Use the command "Rock Paper Scissors".
 
 #### Sample Games
 
-<img src="images/rock-paper-scissors1.png" width="250" height="250">
-<img src="images/rock-paper-scissors2.png" width="200" height="250">
+<img src="images/rock-paper-scissors1.png" width="500">
+<img src="images/rock-paper-scissors2.png" width="500">
 
 ### To tell Anton to stop listening to commands
 
@@ -91,6 +91,6 @@ Use the command "Stop listening"
 
 Use the command "Continue listening" or "Resume listening"
 
-### To tell anton to stop completely
+### To tell Anton to stop completely
 
 Use any of the the commands -> "Quit", "Leave", "Close", or "Bye"
