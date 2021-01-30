@@ -80,8 +80,8 @@ Use the command "Rock Paper Scissors".
 
 #### Sample Games
 
-![Rock Paper Scissors Sample 1](images/rock-paper-scissors1.png)
-![Rock Paper scissors Sample 2](images/rock-paper-scissors2.png)
+![Rock Paper Scissors Sample 1](images/rock-paper-scissors1.png =250x)
+![Rock Paper scissors Sample 2](images/rock-paper-scissors2.png =250x)
 
 ### To tell Anton to stop listening to commands
 
