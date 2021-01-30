@@ -21,11 +21,13 @@ Run the program in your editor or using a terminal and wait about 5 seconds afte
 ### Searching Wikipedia
 
 Say what you want to search wikipedia for with Wikipedia at the end of your sentence. For example;
+
 ![Wikipedia Example](images/wikipedia.png)
 
 ### Password Generation
 
 Use the command "Generate Password". For example;
+
 ![Password Generation Example](images/password.png)
 
 ### To play music
