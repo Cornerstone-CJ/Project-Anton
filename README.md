@@ -32,7 +32,9 @@ Use the command "Generate Password". For example;
 
 ### To play music
 
-Use the command "Play music".
+Use the command "Play music". For example;
+
+![Play music Example](images/music.png)
 
 ### Getting the Time
 
@@ -51,6 +53,10 @@ Use the command "Plot graph".
 #### Teams
 
 Use the command "Open Teams".
+
+#### Discord
+
+Use the command "Open Discord".
 
 #### PyCharm
 
