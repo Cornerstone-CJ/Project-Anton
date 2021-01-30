@@ -23,6 +23,7 @@ from termcolor import colored
 from pygame.locals import * 
 import pygame
 from sys import exit
+
 # dependencies 
 # pip install pyowm
 # pip install SpeechRecognition
@@ -41,10 +42,26 @@ voices = engine.getProperty('voices')
 engine.setProperty('voice', voices[0].id)
 
 # prep for jokes
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+db_path = os.path.join(BASE_DIR, "jokes_db.db")
 joke_phrases = ["Alright this is one of my favorites", "Okay", "Try to not laugh at this one", "Here comes a funny one",
                 "Alright"]
-conn = sqlite3.connect("jokes_db.db")
+conn = sqlite3.connect(db_path)
 cur = conn.cursor()
+
+def anton_help():
+    print('''Here is a list of things I can do:
+    1. Open websites like google, netflix, whatsapp etc.
+    2. Open apps in your computer like PyCharm and Calculator
+    3. Tell jokes
+    4. Play Music
+    5. Give the weather forecast in any desired city
+    6. Get information from wikipedia
+    7. Generate a random password 
+    8. Play rock paper scissors
+
+    ''')
 
 
 def speak(audio):
@@ -64,17 +81,7 @@ def greet():
         speak("Good Evening!")
 
     speak("I am Anton. Please tell me, how may I help you? Just say help to see my features again.")
-    print('''Here is a list of things I can do:
-    1. Open websites like google, netflix, whatsapp etc.
-    2. Open apps in your computer like PyCharm and Calculator
-    3. Tell jokes
-    4. Play Music
-    5. Give the weather forecast in any desired city
-    6. Get information from wikipedia
-    7. Generate a random password 
-    8. Play rock paper scissors
-
-    ''')
+    anton_help()
 
 
 def Commands():
@@ -167,7 +174,11 @@ if __name__ == "__main__":
             speak(f"The time is {strTime}")
 
         elif 'graph' in query:
-            speak("I can only plot linear regression graphs. Please enter the x axis values below")
+            speak('''I can only plot linear graphs.
+            Seperate entries with a comma, 
+            the first x should correspond to the first y and so on
+            ''')
+            speak("Please enter the x axis values below.")
             x = list(map(int, input("X Values: ").split(",")))
             speak("Please enter the y axis values below")
             y = list(map(int, input("Y Values: ").split(",")))
@@ -291,7 +302,7 @@ if __name__ == "__main__":
                     pygame.mixer.music.rewind()
 
         # jokes
-        elif "tell me a joke" or "jokes" or "joke" in query:
+        elif "tell me a joke" in query or "jokes" in query or "joke" in query:
             speak(random.choice(joke_phrases))
             # INSERT INTO "main"."Jokes"("Id","Joke") VALUES (NULL,"Insert joke here");
             cur.execute('SELECT Joke From Jokes ORDER BY RANDOM() LIMIT 1')
@@ -302,8 +313,6 @@ if __name__ == "__main__":
 
 
         # Rock Paper Scissors 
-
-        # game is in terminal atm but gui soon, also plan to modify to play by using voice 
 
         elif "rock paper scissors" in query:
             speak("welcome, you can quit the game anytime by saying the command 'quit'")
@@ -318,24 +327,14 @@ if __name__ == "__main__":
                 val = Commands()
                 match = re.match(pattern, val)
 
-            limit: int = int(match.group(0))
+            limit = int(match.group(0))
 
             rockPaperScissors.game(limit)
 
             print()
         
         elif "help" in query: 
-            print('''Here is a list of things I can do:
-            1. Open websites like google, netflix, whatsapp etc.
-            2. Open apps in your computer like PyCharm and Calculator
-            3. Tell jokes
-            4. Play Music
-            5. Give the weather forecast in any desired city
-            6. Get information from wikipedia
-            7. Generate a random password 
-            8. Play rock paper scissors
-        
-            ''')
+            anton_help()
             
         # stop listening (ignores when you say things that should be commands)
 
