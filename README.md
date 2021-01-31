@@ -48,7 +48,7 @@ Use the command "What is the Weather?".
 
 Use the command "Plot graph". Note that you have to close the graph window for Anton to continue listening.
 
-### Launching Applications (Only availaible for Windows OS)
+### Launching Applications (Only availaible for Windows)
 
 #### Teams
 
