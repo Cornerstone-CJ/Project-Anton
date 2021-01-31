@@ -14,8 +14,6 @@ Alternatively, clone the repository using the following command in your terminal
 git clone https://github.com/Cornerstone-CJ/virtual-assistant-CJ.git
 ```
 
-## Usage
-
 Copy and paste the following code in your terminal then press enter.
 
 ```bash
@@ -30,6 +28,8 @@ pip install matplotlib
 pip install pygame 
 pip install termcolor 
 ```
+
+## Usage
 
 Run the anton.py file
 
