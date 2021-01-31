@@ -16,7 +16,7 @@ git clone https://github.com/Cornerstone-CJ/virtual-assistant-CJ.git
 
 ## Usage
 
-Copy and paste the following code in your terminal
+Copy and paste the following code in your terminal then press enter.
 
 ```bash
 pip install pyowm
@@ -82,6 +82,10 @@ Use the command "Open PyCharm".
 Use the command "Open Calculator".
 
 ### Launching Websites
+
+#### Google
+
+Use the command "Launch Google".
 
 #### Netflix
 
