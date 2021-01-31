@@ -16,7 +16,7 @@ git clone https://github.com/Cornerstone-CJ/virtual-assistant-CJ.git
 
 ## Usage
 
-Run the program in your editor or using a terminal and wait about 5 seconds after the introduction from Anton.
+Run the program by clicking the anton.exe file.
 
 ### Searching Wikipedia
 
