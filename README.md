@@ -39,12 +39,31 @@ In the anton.py file delete lines 28-31 and paste this;
 engine = pyttsx3.init()
 ```
 
+Linux 
+
 Copy and paste the following code in your terminal then press enter.
 
 ```bash
 sudo apt-get install portaudio19-dev
 pip install pyaudio 
 sudo apt install espeak 
+pip install pyowm
+pip install matplotlib
+pip install pygame 
+pip install termcolor
+pip install SpeechRecognition
+pip install wikipedia
+pip install pyttsx3
+```
+
+MacOS 
+
+```bash
+
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew install portaudio19-dev
+pip install pyaudio 
+brew install espeak 
 pip install pyowm
 pip install matplotlib
 pip install pygame 
