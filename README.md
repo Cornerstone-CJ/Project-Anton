@@ -16,7 +16,22 @@ git clone https://github.com/Cornerstone-CJ/virtual-assistant-CJ.git
 
 ## Usage
 
-Run the program by clicking the anton.exe file.
+Copy and paste the following code in your terminal
+
+```bash
+pip install pyowm
+pip install SpeechRecognition
+pip install wikipedia
+pip install pyttsx3
+pip install --user pywin 
+pywin install pyaudio 
+pip install pyowm
+pip install matplotlib
+pip install pygame 
+pip install termcolor 
+```
+
+Run the anton.py file
 
 ### Searching Wikipedia
 
