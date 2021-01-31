@@ -58,8 +58,9 @@ pip install pyttsx3
 
 MacOS 
 
-```bash
+Copy and paste the following code in your terminal then press enter.
 
+```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 brew install portaudio19-dev
 pip install pyaudio 
