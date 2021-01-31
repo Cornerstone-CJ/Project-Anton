@@ -54,6 +54,8 @@ pip install wikipedia
 pip install pyttsx3
 ```
 
+Note: if you can only use pip3, replace pip with pip3.
+
 ## Usage
 
 Run the anton.py file
