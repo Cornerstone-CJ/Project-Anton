@@ -25,18 +25,6 @@ from sys import exit
 from random import randrange
 from typing import Dict, List, Set, Optional, Match
 
-# dependencies 
-# pip install pyowm
-# pip install SpeechRecognition
-# pip install wikipedia
-# pip install pyttsx3
-# pip install --user pywin 
-# pywin install pyaudio 
-# pip install pyowm
-# pip install matplotlib
-# pip install pygame 
-# pip install termcolor 
-
 username = getpass.getuser()
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
