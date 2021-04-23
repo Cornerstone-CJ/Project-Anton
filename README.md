@@ -1,6 +1,6 @@
 # Project Anton
 
-Anton is a Virtual Assistant constructed and coded by the Cornerstone Team, it helps with common tasks such as searching Wikipedia with voice command, Playing Music, Password Generation, Graph Plotting, Getting Time and Weather and Launching Applications.
+ Anton is a Virtual Assistant constructed and coded by the Cornerstone Team, it helps with common tasks such as searching Wikipedia with voice command, Playing Music, Password Generation, Graph Plotting, Getting Time and Weather and Launching Applications.
 
 ## Installation
 
