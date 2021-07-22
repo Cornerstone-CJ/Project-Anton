@@ -24,11 +24,8 @@ import pygame
 from sys import exit
 from random import randrange
 from typing import Dict, List, Set, Optional, Match
-
-username = getpass.getuser()
-engine = pyttsx3.init('sapi5')
-voices = engine.getProperty('voices')
-engine.setProperty('voice', voices[0].id)
+Could not find a version that satisfies the requirement pyown
+engine = pyttsx3.init()
 
 # prep for jokes
 
